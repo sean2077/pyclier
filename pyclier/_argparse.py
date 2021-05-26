@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 08:59:38
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 14:14:31
+LastEditTime : 2021-05-26 18:45:44
 """
 import argparse
 import logging
@@ -95,7 +95,6 @@ class Command:
         except ArgumentParserError as err:
             log.error(f"{err}\n")
             if subparser:
-
                 subparser.print_help()
             else:
                 self._parser.print_help()
@@ -111,15 +110,16 @@ class Command:
 
 def find_cmd(parser: ArgumentParser, idx: int) -> Tuple[ArgumentParser, int]:
     remainder_argv = sys.argv[idx + 1 :]
-    if (
-        remainder_argv
-        and parser
-        and parser._subparsers
-        and parser._subparsers._group_actions
-    ):
-        for action in parser._subparsers._group_actions:
+    if remainder_argv and parser:
+        if parser._subparsers and parser._subparsers._group_actions:
+            actions = parser._subparsers._group_actions
+        else:
+            actions = parser._actions
+        for action in actions:
             action: argparse._SubParsersAction
-            for k, v in action._name_parser_map.items():
-                if k in remainder_argv:
-                    return find_cmd(v, sys.argv.index(k))
+            if hasattr(action, "_name_parser_map"):
+                for k, v in action._name_parser_map.items():
+                    if k in remainder_argv:
+                        return find_cmd(v, sys.argv.index(k))
+
     return parser, idx

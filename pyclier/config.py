@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 16:50:32
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 17:53:10
+LastEditTime : 2021-05-26 18:24:21
 """
 import logging
 import logging.config
@@ -31,7 +31,7 @@ def load_conf_parser(
     """parses and sets up the command line argument system above with config file parsing.
 
     Args:
-        set_conf (Callable[[dict], None]): method that set the global config instance
+        global_conf_setter (Callable[[dict], None]): method that sets the global config instance
         conf_dirs (List[str]): directory of config files
         formats (Tuple[str, ...], optional): supported config file formats. Defaults to ("yml", "yaml", "json").
         conf_name (str, optional): basename of config file. Defaults to "config".
@@ -74,7 +74,7 @@ def load_conf(
     """load config file and set global config instance
 
     Args:
-        global_conf_setter (Callable[[dict], None]): method that set the global config instance
+        global_conf_setter (Callable[[dict], None]): method that sets the global config instance
         conf_dirs (List[str]): directory of config files
         formats (Tuple[str, ...]): supported config file formats.
         conf_name (str): basename of config file.

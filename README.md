@@ -4,12 +4,19 @@ A python CLI framework base on argparse, supporting: config system, command-comp
 
 > Note: This project was created with [Cookiecutter](https://github.com/cookiecutter/cookiecutter) and the [`zhangxianbing/cookiecutter-pypackage`](https://github.com/zhangxianbing/cookiecutter-pypackage) project template.
 
-## Installation
+## Quick Start
+
+### Installation
 
 ```bash
- # install
- git clone https://github.com/zhangxianbing/pyclier
- cd pyclier && pip install .
+
+pip install pyclier
+
 ```
 
-## Usage
+### Run demo
+
+```bash
+PYTHONPATH=. python demo/main.py 
+PYTHONPATH=. python demo/main.py -h
+```

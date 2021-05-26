@@ -1,5 +1,7 @@
-from pyclier import __author__, __name__, __version__, prog_name
 from setuptools import find_packages, setup
+
+from pyclier import __author__, __name__, __version__
+
 
 def read_requirements():
     reqs = []
@@ -23,9 +25,16 @@ setup(
     packages=find_packages(include=[f"{__name__}*"]),
     install_requires=read_requirements(),
     python_requires=">=3.6",
-    entry_points={
-        "console_scripts": [
-            f"{prog_name} = {__name__}.{__name__}:main",
-        ],
-    },
+    license="Apache License 2.0",
+    keywords="options, argparse, config, cli, YAML, INI",
+    classifiers=[
+        "Development Status :: 1 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache License 2.0",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: Implementation :: CPython",
+    ],
 )

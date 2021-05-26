@@ -24,7 +24,7 @@ info: ## project info
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc clean-log clean-test ## remove all build, test, coverage and Python artifacts
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -38,6 +38,16 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-log: ## remove log artifacts
+	find . -name '*.log' -exec rm -f {} +
+
+clean-test: ## remove test and coverage artifacts
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr coverage
+	rm -fr htmlcov/
+	rm -fr .pytest_cache
 
 lint: ## check style with black
 	find $(NAME) -name '*.py' -type f -not -path "*/pb/*" -not -path "*/data/*" -exec black {} +

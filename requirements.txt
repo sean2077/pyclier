@@ -1,0 +1,4 @@
+appdirs>=1.4.4
+PyYAML>=5.4.1
+setuptools>=40.6.2
+rich>=10.1.0

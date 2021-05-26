@@ -6,11 +6,11 @@ from pyclier import Command
 log = logging.getLogger(__name__)
 
 
-def gen_cmd(name):
+def gen_cmd(name, **kwargs):
     def func(args):
         print(f"running {name} command")
 
-    return Command(name, help=f"{name} command", func=func)
+    return Command(name, help=f"{name} command", func=func, **kwargs)
 
 
 def cmd_func(args):
@@ -27,7 +27,7 @@ def main():
     cmd2 = gen_cmd("cmd2")
     cmd3 = gen_cmd("cmd3")
 
-    cmd1_1 = gen_cmd("cmd1_1")
+    cmd1_1 = gen_cmd("cmd1_1", require_args=True)
     cmd1_1.add("-a", help="a options")
     cmd1_2 = gen_cmd("cmd1_2")
 

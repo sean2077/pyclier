@@ -33,8 +33,8 @@ loggers:
     level: DEBUG
     handlers: [rich]
     propagate: yes
-  config:
-    level: DEBUG
+  pyclier:
+    level: INFO
     handlers: [rich]
     propagate: yes
 root:

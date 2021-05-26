@@ -6,4 +6,5 @@ __email__ = "zhangxianbing09@163.com"
 
 from ._argparse import *
 from .common import *
+from .config import *
 from .utils import *

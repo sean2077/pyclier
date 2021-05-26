@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 08:59:38
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 18:45:44
+LastEditTime : 2021-05-26 19:09:17
 """
 import argparse
 import logging
@@ -36,8 +36,12 @@ class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter, SmartHelpFormatter
 
 
 class Command:
-    _parser: ArgumentParser
-    _subparsers: argparse._SubParsersAction
+    parser: ArgumentParser
+    subparsers: argparse._SubParsersAction
+
+    _final_parser: ArgumentParser
+    _idx: int
+    _args: argparse.Namespace
 
     def __init__(self, name, **kwargs):
         self.name = name
@@ -46,10 +50,12 @@ class Command:
         self.func = kwargs.pop("func", None)
         self.require_args = kwargs.pop("require_args", False)
 
-        self._parser = ArgumentParser(
+        self.parser = ArgumentParser(
             prog=self.name, formatter_class=CustomFormatter, **kwargs
         )
-        self._subparsers = None
+        self.subparsers = None
+
+        self._args = None
 
         if self.func:
             self.set_func(self.func)
@@ -59,19 +65,43 @@ class Command:
     # interface compatible with argparse.ArgumentParser
 
     def set_defaults(self, **kwargs):
-        self._parser.set_defaults(**kwargs)
+        self.parser.set_defaults(**kwargs)
 
     def add_argument(self, *args, **kwargs):
-        self._parser.add_argument(*args, **kwargs)
+        self.parser.add_argument(*args, **kwargs)
 
     def add_parser(self, parser: ArgumentParser, **kwargs):
-        if self._subparsers is None:
-            self._subparsers = self._parser.add_subparsers(title="Commands")
+        if self.subparsers is None:
+            self.subparsers = self.parser.add_subparsers(
+                title="Commands", dest="command"
+            )
         kwargs.pop("parents", None)
         add_help = kwargs.pop("add_help", False)
-        self._subparsers.add_parser(
+        self.subparsers.add_parser(
             parser.prog, parents=[parser], add_help=add_help, **kwargs
         )
+
+    def parse_args(self):
+        if self._args:
+            return self._args
+
+        subparser, idx = find_cmd(self.parser, 0)
+
+        try:
+            args = self.parser.parse_args()
+        except ArgumentParserError as err:
+            log.error(f"{err}\n")
+            if subparser:
+                subparser.print_help()
+            else:
+                self.parser.print_help()
+            sys.exit(2)
+
+        self._final_parser = subparser
+        self._idx = idx
+        self._args = args
+
+        return args
 
     # simplified custom interface
 
@@ -79,7 +109,7 @@ class Command:
         self.set_defaults(func=func)
 
     def add_sub(self, command: "Command"):
-        self.add_parser(command._parser, help=command.help)
+        self.add_parser(command.parser, help=command.help)
 
     def add(self, *args, **kwargs):
         self.add_argument(*args, **kwargs)
@@ -87,23 +117,16 @@ class Command:
     # executor method
 
     def run(self):
-        # parser argument and execute
-        subparser, idx = find_cmd(self._parser, 0)
-
-        try:
-            args = self._parser.parse_args()
-        except ArgumentParserError as err:
-            log.error(f"{err}\n")
-            if subparser:
-                subparser.print_help()
-            else:
-                self._parser.print_help()
-            sys.exit(2)
+        "parser argument and execute"
+        if not self._args:
+            args = self.parse_args()
+        else:
+            args = self._args
 
         if not hasattr(args, "func"):
-            self._parser.print_help()
-        elif args.require_args and idx + 1 == len(sys.argv):
-            subparser.print_help()
+            self.parser.print_help()
+        elif args.require_args and self._idx + 1 == len(sys.argv):
+            self._final_parser.print_help()
         else:
             args.func(args)
 

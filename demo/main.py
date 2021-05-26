@@ -16,7 +16,6 @@ def gen_cmd(name, **kwargs):
 def cmd_func(args):
     conf = get_conf()
     log.info(conf)
-    log.info(args)
 
 
 def main():
@@ -40,6 +39,8 @@ def main():
     cmd.add_sub(cmd3)
 
     cmd.run()
+
+    log.info(cmd._args)
 
 
 if __name__ == "__main__":

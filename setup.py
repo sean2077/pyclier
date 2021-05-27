@@ -28,7 +28,7 @@ setup(
     license="Apache License 2.0",
     keywords="options, argparse, config, cli, YAML, INI",
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 3.6",

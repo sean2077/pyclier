@@ -54,6 +54,7 @@ if command == "install":
 ### Run demo
 
 ```bash
-PYTHONPATH=. python demo/main.py
-PYTHONPATH=. python demo/main.py -h
+cd pyclier-demo && make install
+# then refresh your bash environment
+pyclier -h
 ```

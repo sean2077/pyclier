@@ -1,7 +1,9 @@
 import logging
 
-from config import conf_parser, get_conf
 from pyclier import Command
+
+from . import __version__, prog_name
+from .config import conf_parser, get_conf
 
 log = logging.getLogger(__name__)
 
@@ -19,8 +21,8 @@ def cmd_func(args):
 
 
 def main():
-    cmd = Command("demo", func=cmd_func, parents=[conf_parser])
-    cmd.add("-V", "--version", action="version", version=f"%(prog)s-0.0.1")
+    cmd = Command(prog_name, func=cmd_func, parents=[conf_parser])
+    cmd.add("-V", "--version", action="version", version=f"%(prog)s-{__version__}")
 
     cmd1 = gen_cmd("cmd1")
     cmd2 = gen_cmd("cmd2")

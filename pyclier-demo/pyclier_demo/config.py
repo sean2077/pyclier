@@ -6,18 +6,19 @@ from typing import List, Optional
 import appdirs
 from pyclier import LDMixin, load_conf_parser
 
+from . import prog_name
+
 log = logging.getLogger(__name__)
 
 
 # ======================   Config file locations   ====================== #
 
-CONFIG_DIRS = [
-    appdirs.user_config_dir("demo"),
-    os.path.join("$DEMO_HOME", "conf"),
-    "$DEMO_CONF_DIR",
+CONF_DIRS = [
+    appdirs.user_config_dir(prog_name),
+    os.path.join("$PYCLIER_DEMO_HOME", "conf"),
+    "$PYCLIER_DEMO_CONF_DIR",
     os.path.join(os.curdir, "conf"),
 ]
-
 
 # ======================   Config class definition   ====================== #
 
@@ -72,4 +73,4 @@ def get_conf():
     return _conf
 
 
-conf_parser = load_conf_parser(set_conf, CONFIG_DIRS)
+conf_parser = load_conf_parser(set_conf, CONF_DIRS)

@@ -1,0 +1,5 @@
+setuptools>=40.6.2
+appdirs>=1.4.4
+rich>=10.1.0
+PyYAML>=5.4.1
+pyclier>=0.1.2

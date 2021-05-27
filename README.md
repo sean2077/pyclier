@@ -6,12 +6,11 @@ A python CLI framework base on [argparse](https://docs.python.org/3/library/argp
 
 ## Features
 
-- [x] support configuration file parsing system
-- [x] support rich-text and flexible log system
 - [x] support friendly help message prompt
+- [x] support configuration file parsing system
 - [x] support easy-to-use interface for building complex CLI program
-- [ ] support interactive mode
-- [ ] support command auto-completion
+- [x] support rich-text and flexible log system (base on [rich](https://github.com/willmcgugan/rich))
+- [x] support command auto-completion (base on [argcomplete](https://github.com/kislyuk/argcomplete))
 
 ## Quick Start
 
@@ -20,6 +19,31 @@ A python CLI framework base on [argparse](https://docs.python.org/3/library/argp
 ```bash
 
 pip install pyclier
+
+```
+
+For using auto completion, you should first install [argcomplete](https://github.com/kislyuk/argcomplete) and the activate it:
+
+```bash
+pip install argcomplete
+activate-global-python-argcomplete
+```
+
+Then add the following lines in your setup.py:
+
+```py
+from setuptools import setup
+
+setup(...)
+
+# post installation
+
+from pyclier.setuptools import copytree, enable_complete
+
+command = sys.argv[-1]
+if command == "install":
+    copytree("conf", appdirs.user_config_dir(prog_name))
+    enable_complete(prog_name)
 
 ```
 

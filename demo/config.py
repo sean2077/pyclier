@@ -1,12 +1,13 @@
 import logging.config
 import os
 from enum import Enum
-from typing import Optional
+from typing import List, Optional
 
 import appdirs
 from pyclier import LDMixin, load_conf_parser
 
 log = logging.getLogger(__name__)
+
 
 # ======================   Config file locations   ====================== #
 
@@ -19,9 +20,6 @@ CONFIG_DIRS = [
 
 
 # ======================   Config class definition   ====================== #
-
-
-from typing import List
 
 
 class Config1(LDMixin):

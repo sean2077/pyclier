@@ -3,12 +3,15 @@ Author       : zhangxianbing
 Date         : 2021-05-26 08:59:38
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 19:09:17
+LastEditTime : 2021-05-27 11:27:59
 """
 import argparse
 import logging
 import sys
 from typing import NoReturn, Text, Tuple
+
+import argcomplete
+
 
 log = logging.getLogger(__name__)
 
@@ -118,6 +121,10 @@ class Command:
 
     def run(self):
         "parser argument and execute"
+
+        # for autocomplete
+        argcomplete.autocomplete(self.parser)
+
         if not self._args:
             args = self.parse_args()
         else:

@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 16:50:32
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 18:24:21
+LastEditTime : 2021-05-27 17:45:01
 """
 import logging
 import logging.config
@@ -32,7 +32,7 @@ def load_conf_parser(
 
     Args:
         global_conf_setter (Callable[[dict], None]): method that sets the global config instance
-        conf_dirs (List[str]): directory of config files
+        conf_dirs (List[str]): directories of config files, support pattern `~` (meaning root) and `$ENVIRONMENT_VARIABLE`
         formats (Tuple[str, ...], optional): supported config file formats. Defaults to ("yml", "yaml", "json").
         conf_name (str, optional): basename of config file. Defaults to "config".
         log_conf_name (str, optional): basename of logging config file. Defaults to "logging".
@@ -54,6 +54,7 @@ def load_conf_parser(
         conf_dirs.insert(0, args.conf_dir)
 
     conf_dirs = list(map(os.path.expandvars, conf_dirs))
+    conf_dirs = list(map(os.path.expanduser, conf_dirs))
 
     # Load configuration
     # first load logging config file

@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-27 15:20:49
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-27 19:58:24
+LastEditTime : 2021-05-27 20:53:30
 """
 import os
 import shutil
@@ -59,7 +59,7 @@ def find_line(filepat, pattern):
 def enable_complete(prog_name):
     bashrc_path = os.path.expanduser("~/.bashrc")
     line = f'eval "$(register-python-argcomplete {prog_name})"'
-    added_lines = f"# {prog_name}\n{line}\n"
+    added_lines = f"# {prog_name} (added by pyclier)\n{line}\n"
 
     if find_line(bashrc_path, line):
         print(f"Already added the following lines to: {bashrc_path}\n{added_lines}")

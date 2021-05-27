@@ -45,6 +45,10 @@ if command == "install":
     copytree("conf", appdirs.user_config_dir(prog_name))
     enable_complete(prog_name)
 
+    import pip
+
+    pip.main(["install", ".", "-U", "--no-index"])
+
 ```
 
 ### Run demo

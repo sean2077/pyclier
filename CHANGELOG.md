@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/zhangxianbing/pyclier/compare/v1.0.0...v1.0.1) (2021-05-27)
+
+
+### Features
+
+* bump version 1.0.1 ([f0586b4](https://github.com/zhangxianbing/pyclier/commit/f0586b4042dd85c4c4f8f1b3d191f75e2c873046))
+
 ## [1.0.0](https://github.com/zhangxianbing/pyclier/compare/v0.1.1...v1.0.0) (2021-05-27)
 
 

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/zhangxianbing/pyclier/compare/v0.1.1...v1.0.0) (2021-05-27)
+
+
+### Features
+
+* add setuptools for copying conf dir and autocomplete fuction ([45dd7d7](https://github.com/zhangxianbing/pyclier/commit/45dd7d76888d5486a1a3dd683ae090914a786e04))
+* bump version 1.0.0 ([e16d99b](https://github.com/zhangxianbing/pyclier/commit/e16d99b06030f9b33c4ebd0177d504ed42a7f721))
+* update pyclier-demo ([920f98d](https://github.com/zhangxianbing/pyclier/commit/920f98d9797189276c5d3747c1c1357de1a1b7ca))
+
 ### [0.1.1](https://github.com/zhangxianbing/pyclier/compare/v0.1.0...v0.1.1) (2021-05-26)
 
 

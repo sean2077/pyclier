@@ -12,6 +12,7 @@ A python CLI framework base on [argparse](https://docs.python.org/3/library/argp
 - [x] support rich-text and flexible log system (base on [rich](https://github.com/willmcgugan/rich))
 - [x] support command auto-completion (base on [argcomplete](https://github.com/kislyuk/argcomplete))
 - [ ] support auto generating and updating usage (based on [auto-usage](https://github.com/zhangxianbing/auto-usage))
+- [ ] support updating CLI program
 
 ## Quick Start
 

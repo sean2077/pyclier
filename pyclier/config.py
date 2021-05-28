@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 16:50:32
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-27 17:45:01
+LastEditTime : 2021-05-28 22:25:56
 """
 import logging
 import logging.config
@@ -99,3 +99,13 @@ def load_conf(
                 log.error(err)
                 continue
             break
+
+
+def load_general_conf(global_conf_loader, conf_files):
+    for conf_file in reversed(conf_files):
+        try:
+            global_conf_loader(conf_file)
+        except Exception as e:
+            log.error(e)
+            continue
+        break

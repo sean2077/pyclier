@@ -69,7 +69,7 @@ def set_conf(d: dict):
 def get_conf():
     global _conf
     if _conf is None:
-        _conf = Config()
+        load_conf_parser(set_conf, CONF_DIRS)
     return _conf
 
 

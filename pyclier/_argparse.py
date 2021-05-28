@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 08:59:38
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-27 11:27:59
+LastEditTime : 2021-05-28 14:49:30
 """
 import argparse
 import logging
@@ -11,7 +11,6 @@ import sys
 from typing import NoReturn, Text, Tuple
 
 import argcomplete
-
 
 log = logging.getLogger(__name__)
 
@@ -75,9 +74,7 @@ class Command:
 
     def add_parser(self, parser: ArgumentParser, **kwargs):
         if self.subparsers is None:
-            self.subparsers = self.parser.add_subparsers(
-                title="Commands", dest="command"
-            )
+            self.subparsers = self.parser.add_subparsers(title="Commands")
         kwargs.pop("parents", None)
         add_help = kwargs.pop("add_help", False)
         self.subparsers.add_parser(
@@ -89,6 +86,7 @@ class Command:
             return self._args
 
         subparser, idx = find_cmd(self.parser, 0)
+        self.set_defaults(_prog=subparser.prog)
 
         try:
             args = self.parser.parse_args()

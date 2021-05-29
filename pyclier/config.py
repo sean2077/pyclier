@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 16:50:32
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-28 22:25:56
+LastEditTime : 2021-05-28 22:39:45
 """
 import logging
 import logging.config
@@ -11,7 +11,7 @@ import os
 from typing import Callable, List, Tuple
 
 from ._argparse import ArgumentParser
-from .utils import load_json, load_yaml
+from .utils import expand_path, load_json, load_yaml
 
 log = logging.getLogger(__name__)
 
@@ -53,8 +53,7 @@ def load_conf_parser(
     if args.conf_dir:
         conf_dirs.insert(0, args.conf_dir)
 
-    conf_dirs = list(map(os.path.expandvars, conf_dirs))
-    conf_dirs = list(map(os.path.expanduser, conf_dirs))
+    conf_dirs = list(map(expand_path, conf_dirs))
 
     # Load configuration
     # first load logging config file
@@ -102,7 +101,8 @@ def load_conf(
 
 
 def load_general_conf(global_conf_loader, conf_files):
-    for conf_file in reversed(conf_files):
+    real_conf_paths = list(map(expand_path, conf_files))
+    for conf_file in reversed((real_conf_paths)):
         try:
             global_conf_loader(conf_file)
         except Exception as e:

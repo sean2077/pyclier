@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-24 19:20:27
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-26 09:51:08
+LastEditTime : 2021-05-29 09:24:31
 """
 import codecs
 import json
@@ -128,6 +128,10 @@ class DumpMixin:
     def to_jsonf(self, fpath: str, **kwargs):
         with codecs.open(fpath, mode="w", encoding="utf-8") as f:
             json.dump(self.to_dict(**kwargs), f)
+
+    def to_yamlf(self, fpath: str, **kwargs):
+        with codecs.open(fpath, mode="w", encoding="utf-8") as f:
+            yaml.dump(self.to_dict(**kwargs), f, sort_keys=False)
 
     @LazyProperty
     def __pretty_json__repr__(self):

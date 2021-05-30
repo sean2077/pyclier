@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-26 08:59:38
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-28 14:49:30
+LastEditTime : 2021-05-30 11:49:42
 """
 import argparse
 import logging
@@ -51,9 +51,10 @@ class Command:
         self.help = kwargs.pop("help", None)
         self.func = kwargs.pop("func", None)
         self.require_args = kwargs.pop("require_args", False)
+        self.formatter_class = kwargs.pop("formatter_class", CustomFormatter)
 
         self.parser = ArgumentParser(
-            prog=self.name, formatter_class=CustomFormatter, **kwargs
+            prog=self.name, formatter_class=self.formatter_class, **kwargs
         )
         self.subparsers = None
 
@@ -110,7 +111,9 @@ class Command:
         self.set_defaults(func=func)
 
     def add_sub(self, command: "Command"):
-        self.add_parser(command.parser, help=command.help)
+        self.add_parser(
+            command.parser, help=command.help, formatter_class=command.formatter_class
+        )
 
     def add(self, *args, **kwargs):
         self.add_argument(*args, **kwargs)

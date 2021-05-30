@@ -7,10 +7,6 @@ config2:
     - "a_type"
     - "b_type"
     - "c_type"
-  enum_type:
-    - "JAVA"
-    - "PYTHON"
-    - "CPP"
   dict_type:
     "object1":
       attr1: "attr1"

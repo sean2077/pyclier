@@ -1,7 +1,7 @@
 import logging.config
 import os
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import appdirs
 from pyclier import LDMixin, load_conf_parser
@@ -33,21 +33,9 @@ class Object(LDMixin):
     attr2: int
 
 
-class DictType(LDMixin):
-    object1: Object
-    object2: Object
-
-
-class EnumType(Enum):
-    JAVA = "JAVA"
-    PYTHON = "PYTHON"
-    CPP = "CPP"
-
-
 class Config2(LDMixin):
     list_type: List[str]
-    enum_type: List[EnumType]
-    dict_type: DictType
+    dict_type: Dict[str, Object]
 
 
 class Config(LDMixin):

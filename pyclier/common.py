@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-24 19:20:27
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-29 09:24:31
+LastEditTime : 2021-05-30 16:51:05
 """
 import codecs
 import json
@@ -60,10 +60,11 @@ class LoadMixin:
         if o_type in (dict, Dict):
             if value is None:
                 return {}
-            return {
-                k: LoadMixin._load(g_type[0], f"{name}.{k}", v, cls, **kwargs)
-                for k, v in value.items()
-            }
+            r = {}
+            for k, v in value.items():
+                v = LoadMixin._load(g_type[1], f"{name}.{k}", v, cls, **kwargs)
+                r[k] = v
+            return r
 
         raise RuntimeError(f"This generics is not supported `{o_type}`")
 
@@ -77,7 +78,8 @@ class LoadMixin:
         for n, t in cls.__annotations__.items():
             arg_v = d.get(n)
             def_v = getattr(instance, n, None)
-            setattr(instance, n, LoadMixin._load(t, n, arg_v or def_v, cls, **kwargs))
+            v = LoadMixin._load(t, n, arg_v or def_v, cls, **kwargs)
+            setattr(instance, n, v)
 
         return instance
 

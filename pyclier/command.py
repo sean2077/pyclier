@@ -1,40 +1,20 @@
 """
 Author       : zhangxianbing
-Date         : 2021-05-26 08:59:38
+Date         : 2021-06-05 11:54:45
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-30 11:49:42
+LastEditTime : 2021-08-09 17:04:48
 """
 import argparse
 import logging
 import sys
-from typing import NoReturn, Text, Tuple
+from typing import Tuple
 
-import argcomplete
+# import argcomplete
+
+from .argparse import ArgumentParser, ArgumentParserError, CustomFormatter
 
 log = logging.getLogger(__name__)
-
-
-class ArgumentParserError(Exception):
-    pass
-
-
-class ArgumentParser(argparse.ArgumentParser):
-    def error(self, message: Text) -> NoReturn:
-        raise ArgumentParserError(message)
-
-
-class SmartHelpFormatter(argparse.HelpFormatter):
-    def _split_lines(self, text, width):
-        lines = text.splitlines() if "\n" in text else [text]
-        wrap_lines = []
-        for each_line in lines:
-            wrap_lines.extend(super()._split_lines(each_line, width))
-        return wrap_lines
-
-
-class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter, SmartHelpFormatter):
-    pass
 
 
 class Command:
@@ -124,17 +104,17 @@ class Command:
         "parser argument and execute"
 
         # for autocomplete
-        argcomplete.autocomplete(self.parser)
+        # argcomplete.autocomplete(self.parser)
 
         if not self._args:
             args = self.parse_args()
         else:
             args = self._args
 
-        if not hasattr(args, "func"):
-            self.parser.print_help()
-        elif args.require_args and self._idx + 1 == len(sys.argv):
+        if args.require_args and self._idx + 1 == len(sys.argv):
             self._final_parser.print_help()
+        elif not hasattr(args, "func"):
+            self.parser.print_help()
         else:
             args.func(args)
 

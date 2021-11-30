@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/zhangxianbing/pyclier/compare/v1.0.1...v2.0.0) (2021-11-30)
+
+
+### Features
+
+* add func load_general_conf ([e9ca744](https://github.com/zhangxianbing/pyclier/commit/e9ca7440a039f36fdab4450e081e6625ac5a4b8f))
+* bump version 1.0.2 ([84792f7](https://github.com/zhangxianbing/pyclier/commit/84792f7e0d508750fd5f9ed359c18d67e2da7389))
+* improve pyclier-demo ([29d78a5](https://github.com/zhangxianbing/pyclier/commit/29d78a598c10358974527ba8530111567ba99503))
+* refactor project & add actors ([b089dd1](https://github.com/zhangxianbing/pyclier/commit/b089dd1399e34f5b7e2c1f188294291d9a320899))
+
+
+### Bug Fixes
+
+* fix argument formatter_class ([2831b70](https://github.com/zhangxianbing/pyclier/commit/2831b70ac633d45e783aef785c9d899e1c0d3411))
+* fix get_conf in pyclier_demo ([3b6bfb9](https://github.com/zhangxianbing/pyclier/commit/3b6bfb9bb2e345417910580e570da8b2eb2e80c1))
+* fix way to catch command name ([bef0e23](https://github.com/zhangxianbing/pyclier/commit/bef0e239212de1439476c43724bbd4eff632d6bf))
+
 ### [1.0.1](https://github.com/zhangxianbing/pyclier/compare/v1.0.0...v1.0.1) (2021-05-27)
 
 

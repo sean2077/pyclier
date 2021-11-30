@@ -3,6 +3,6 @@
     See: https://github.com/zhangxianbing/pyclier.
 """
 
-__version__ = "1.0.2"
+__version__ = "2.0.0"
 __author__ = """zhangxianbing"""
 __email__ = "zhangxianbing09@163.com"

@@ -3,7 +3,7 @@ Author       : zhangxianbing
 Date         : 2021-05-24 19:20:27
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-30 16:51:05
+LastEditTime : 2021-06-05 14:10:03
 """
 import codecs
 import json
@@ -26,6 +26,8 @@ class LazyProperty:
 
 
 class LoadMixin:
+    __slots__ = ()  # mixin class doesn't have instance members
+
     @staticmethod
     def _load(type_, name, value, cls, **kwargs) -> Any:
         # * forward reference type
@@ -73,7 +75,8 @@ class LoadMixin:
         if isinstance(d, cls):
             return d
 
-        instance = cls()
+        # generate an uninitialized instance
+        instance = cls.__new__(cls)
 
         for n, t in cls.__annotations__.items():
             arg_v = d.get(n)
@@ -99,6 +102,8 @@ class LoadMixin:
 
 
 class DumpMixin:
+    __slots__ = ()
+
     @staticmethod
     def _dump(value, **kwargs):
 

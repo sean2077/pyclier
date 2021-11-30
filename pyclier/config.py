@@ -3,14 +3,14 @@ Author       : zhangxianbing
 Date         : 2021-05-26 16:50:32
 Description  : 
 LastEditors  : zhangxianbing
-LastEditTime : 2021-05-28 22:39:45
+LastEditTime : 2021-06-12 13:52:16
 """
 import logging
 import logging.config
 import os
 from typing import Callable, List, Tuple
 
-from ._argparse import ArgumentParser
+from .argparse import ArgumentParser
 from .utils import expand_path, load_json, load_yaml
 
 log = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ DEFAULT_CONF_NAME = "config"
 DEFAULT_LOG_CONF_NAME = "logging"
 
 
-def load_conf_parser(
+def make_conf_parser(
     global_conf_setter: Callable[[dict], None],
     conf_dirs: List[str],
     formats: Tuple[str, ...] = SUPPORTED_FORMATS,
@@ -43,7 +43,7 @@ def load_conf_parser(
     parser = ArgumentParser(add_help=False)
 
     parser.add_argument(
-        "-c",
+        "-C",
         "--conf-dir",
         help=f"Directory of configuration files (logging.yml, config.yml).\nPriority: file specified by option \"-c\" > {' > '.join(reversed(conf_dirs))}\n",
         default=None,
@@ -102,10 +102,16 @@ def load_conf(
 
 def load_general_conf(global_conf_loader, conf_files):
     real_conf_paths = list(map(expand_path, conf_files))
+    loaded = False
     for conf_file in reversed((real_conf_paths)):
-        try:
-            global_conf_loader(conf_file)
-        except Exception as e:
-            log.error(e)
-            continue
-        break
+        if os.path.exists(conf_file):
+            try:
+                global_conf_loader(conf_file)
+            except Exception as e:
+                log.error(e)
+                continue
+            loaded = True
+            break
+
+    if not loaded:
+        raise ValueError(f"no valid config in {conf_files}")
